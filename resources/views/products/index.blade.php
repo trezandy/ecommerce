@@ -14,9 +14,27 @@ $staticData = [
 <x-app-layout>
     <div class="bg-white">
         <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-            <h2 class="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
+            <!-- Updated section: Added a flex container to align title and button -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
 
-            <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                <!-- Added button: This button will only be visible to authenticated super admins -->
+                @auth
+                @if(auth()->user()->hasRole('super admin'))
+                <a href="{{ route('products.create') }}"
+                    class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                    </svg>
+                    New Product
+                </a>
+                @endif
+                @endauth
+            </div>
+
+
+            <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
 
                 @foreach ($products as $index => $product)
                 @php
@@ -24,14 +42,30 @@ $staticData = [
                 @endphp
 
                 <div class="group relative">
+                    {{-- Edit link for admin --}}
+                    @auth
+                    @if(auth()->user()->hasRole('super admin'))
+                    <a href="{{ route('products.edit', $product) }}"
+                        class="absolute top-2 right-2 z-10 bg-white p-1.5 rounded-full shadow-md hover:bg-gray-100">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.536L16.732 3.732z">
+                            </path>
+                        </svg>
+                    </a>
+                    @endif
+                    @endauth
+
                     <img src="{{ $static['image'] }}" alt="Front of men&#039;s Basic Tee in black." loading="lazy"
                         class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
                     <div class="mt-4 flex justify-between">
                         <div>
                             <h3 class="text-sm text-gray-700">
+                                {{-- The main link now points to the admin edit page for convenience --}}
                                 <a href="{{ route('products.show', $product) }}">
                                     <span aria-hidden="true" class="absolute inset-0"></span>
-                                    {{ $static['name'] }}
+                                    {{ $product->name }}
                                 </a>
                             </h3>
                             <p class="mt-1 text-sm text-gray-500">{{ $static['color'] }}</p>

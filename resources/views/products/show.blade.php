@@ -15,6 +15,52 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('success'))
+            {{--
+            Komponen notifikasi ini menggunakan Alpine.js (bawaan Breeze)
+            untuk interaktivitas.
+            - x-data="{ show: true }": Menginisialisasi status agar notifikasi terlihat.
+            - x-show="show": Notifikasi hanya akan tampil jika 'show' bernilai true.
+            - x-transition: Memberikan animasi fade-in/out yang halus.
+            - x-init="setTimeout...": Notifikasi akan hilang otomatis setelah 5 detik.
+            --}}
+            <div x-data="{ show: true }" x-show="show" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 transform -translate-y-4"
+                x-transition:enter-end="opacity-100 transform translate-y-0"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 transform translate-y-0"
+                x-transition:leave-end="opacity-0 transform -translate-y-4" {{--
+                x-init="setTimeout(() => show = false, 5000)" class="mb-6"> --}}
+                >
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md mb-3"
+                    role="alert">
+                    <div class="flex">
+                        <div class="py-0">
+                            <svg class="h-6 w-6 text-green-500 mr-4" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            {{-- <p class="font-bold">Success!</p> --}}
+                            {{-- Menampilkan pesan dari session --}}
+                            <p class="text-sm">{{ session('success') }}</p>
+                        </div>
+                        {{-- Tombol untuk menutup notifikasi --}}
+                        <div class="ml-auto pl-3">
+                            <button @click="show = false" class="text-green-500 hover:text-green-700">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="bg-white">
                 <div class="pt-6">
                     <nav aria-label="Breadcrumb">

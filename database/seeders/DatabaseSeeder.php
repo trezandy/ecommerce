@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
 
         User::find(1)->assignRole('super admin');
 
-        Product::factory(12)->create();
+        Product::factory(3)->create();
 
-        // $this->call([
-        //     VisitorSeeder::class,
-        // ]);
+        $this->call([
+            VisitorSeeder::class,
+        ]);
     }
 }

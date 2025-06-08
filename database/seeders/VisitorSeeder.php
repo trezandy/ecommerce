@@ -39,7 +39,7 @@ class VisitorSeeder extends Seeder
             $loc = $locations[array_rand($locations)];
 
             DB::table('visitors')->insert([
-                'shortener_id' => rand(1, 4),
+                'shortener_id' => rand(1, 3),
                 'ip_address' => fake()->ipv4(),
                 'country' => 'Indonesia',
                 'city' => $loc['city'],
