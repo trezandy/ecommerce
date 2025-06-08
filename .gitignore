@@ -15,9 +15,6 @@ Homestead.json
 
 # Laravel Breeze (Vite/Frontend build)
 /public/build
-/resources/js/bootstrap.js
-/resources/js/app.js
-/resources/css/app.css
 
 # OS dan editor
 .DS_Store
