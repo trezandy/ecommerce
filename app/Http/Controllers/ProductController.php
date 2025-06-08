@@ -74,7 +74,7 @@ class ProductController extends Controller
         }
 
         // 4. Redirect dengan pesan sukses
-        return to_route('products.show', $product)->with('success', 'Product created successfully!');
+        return to_route('products.index')->with('success', 'Product created successfully!');
     }
 
     public function showcase()

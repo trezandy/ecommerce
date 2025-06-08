@@ -23,7 +23,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $name = $this->faker->words(3, true), // Menggunakan words agar tidak terlalu panjang
+            'name' => $name = ucwords($this->faker->words(3, true)), // Menggunakan words agar tidak terlalu panjang
             'slug' => str($name)->slug(),
             'description' => $this->faker->paragraph,
             'price' => $this->faker->numberBetween(100000, 500000),
