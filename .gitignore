@@ -12,6 +12,7 @@ Homestead.json
 /.env.backup
 .env.testing
 .env.*.backup
+.env
 
 # Laravel Breeze (Vite/Frontend build)
 /public/build
